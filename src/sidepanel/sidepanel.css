@@ -136,6 +136,13 @@ body {
 .provider-save { border:1px solid var(--ink);background:var(--ink);color:var(--on-ink); }
 .provider-clear { border:1px solid rgba(33,29,25,.14);background:transparent;color:#756b61; }
 .provider-note { display:block;margin:7px 1px 0;color:#8a8178;font-size:8px;line-height:1.45; }
+.diagnostic-divider { height:1px;background:rgba(58,46,34,.12);margin:13px 0 10px; }
+.diagnostic-row { display:flex;align-items:center;justify-content:space-between;gap:10px; }
+.diagnostic-row > span { display:grid;gap:2px; }
+.diagnostic-row strong { font-size:10px;color:#61584f; }
+.diagnostic-row small { font-size:8px;line-height:1.35;color:#8a8178; }
+.diagnostic-row button { flex:0 0 auto;border:1px solid rgba(33,29,25,.14);border-radius:9px;background:rgba(255,255,255,.5);color:#675e55;padding:8px 9px;font-size:9px;font-weight:700; }
+.diagnostic-message { margin-top:8px;padding:7px 9px;border-radius:8px;background:var(--soft);color:var(--ink);font-size:9px;line-height:1.45; }
 
 .global-error, .inline-error { color: #8d2828; background: #f9e5e1; border: 1px solid #eabfb7; border-radius: 12px; padding: 10px 12px; font-size: 12px; margin-bottom: 14px; }
 .global-error { display: flex; justify-content: space-between; gap: 10px; }
@@ -235,7 +242,7 @@ mark.contradiction { background: #efaaa2; color: #721d19; border: 1px solid #cf5
   .app-shell.persona-prism { --accent: #7ea6e0; --ink: #e4ecf8; --on-ink: #16202e; --ink-accent: #456d9e; --soft: #22303f; background: radial-gradient(circle at 8% 0%,rgba(125,143,168,.16),transparent 30%),#141c26; }
 
   .brand small, .intro, .permission-note, .goal-summary p, .status-line { color: #aaa198; }
-  .brand-mark, .aq-card, textarea, .persona-choice, .provider-field input { background: rgba(255,255,255,.05); color: #f2ece5; border-color: rgba(255,255,255,.1); }
+  .brand-mark, .aq-card, textarea, .persona-choice, .provider-field input, .diagnostic-row button { background: rgba(255,255,255,.05); color: #f2ece5; border-color: rgba(255,255,255,.1); }
   .icon-button { background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.12); color: #cdc5bc; }
   .icon-button.active { background: rgba(255,255,255,.12); }
   .secondary { color: #e8e0d7; background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.12); }

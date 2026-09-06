@@ -21,6 +21,49 @@ export interface ProviderSummary {
   consentGranted: boolean;
 }
 
+export type DiagnosticErrorCategory =
+  | "model_auth"
+  | "model_rate_limit"
+  | "model_http"
+  | "model_timeout"
+  | "model_network"
+  | "permission_denied"
+  | "pdf_unavailable"
+  | "navigation"
+  | "invalid_message"
+  | "unknown";
+
+export interface DiagnosticEvent {
+  occurredAt: string;
+  operation: string;
+  category: DiagnosticErrorCategory;
+  httpStatus?: number;
+}
+
+export interface DiagnosticReport {
+  schemaVersion: 1;
+  generatedAt: string;
+  extensionVersion: string;
+  browser: string;
+  platform: string;
+  provider: {
+    configured: boolean;
+    consentGranted: boolean;
+  };
+  featureState: {
+    sessionStatus: SessionStatus | "none";
+    paperIndexStatus: LearningSession["paperIndex"]["status"] | "none";
+    companionEnabled: boolean;
+    persona: PersonaId | "none";
+    verificationMode: VerificationMode;
+  };
+  permissions: {
+    fileAccessAllowed: boolean;
+    webAccessGranted: boolean;
+  };
+  lastError?: DiagnosticEvent;
+}
+
 export interface TimedPermission {
   id: string;
   siteKey: string;
@@ -125,6 +168,7 @@ export interface AppState {
   providerReady: boolean;
   provider: ProviderSummary;
   lastError?: string;
+  lastDiagnostic?: DiagnosticEvent;
 }
 
 export const DEFAULT_SETTINGS: Settings = {

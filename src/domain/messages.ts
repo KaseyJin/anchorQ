@@ -35,6 +35,7 @@ export const requestSchema = z.discriminatedUnion("type", [
   }),
   z.object({ type: z.literal("MODEL_CONFIG_TEST") }),
   z.object({ type: z.literal("MODEL_CONFIG_CLEAR") }),
+  z.object({ type: z.literal("DIAGNOSTICS_GET") }),
   z.object({
     type: z.literal("SETTINGS_UPDATE"),
     payload: z.object({

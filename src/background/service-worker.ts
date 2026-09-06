@@ -22,6 +22,7 @@ import {
   type PermissionScope,
 } from "../domain/types";
 import { safeSiteKey, isSupportedCoreUrl } from "../domain/url";
+import { classifyDiagnosticFailure, createDiagnosticReport } from "../domain/diagnostics";
 import {
   clearSessionState,
   loadSessionState,
@@ -135,6 +136,32 @@ function response<T>(data: T): ApiResponse<T> {
 
 function errorResponse(error: unknown): ApiResponse {
   return { ok: false, error: error instanceof Error ? error.message : "未知错误" };
+}
+
+async function recordDiagnosticFailure(error: unknown, operation: string): Promise<void> {
+  const diagnostic = classifyDiagnosticFailure(error, operation);
+  try {
+    await update((state) => ({ ...state, lastDiagnostic: diagnostic }));
+  } catch {
+    // Diagnostics must never interfere with the original operation or response.
+  }
+}
+
+function browserSummary(): string {
+  const match = navigator.userAgent.match(/Edg\/([\d.]+)/);
+  return match ? `Microsoft Edge ${match[1]}` : "Chromium-compatible browser";
+}
+
+function platformSummary(): string {
+  const userAgent = navigator.userAgent;
+  if (/Windows/i.test(userAgent)) return "Windows";
+  if (/Macintosh|Mac OS X/i.test(userAgent)) return "macOS";
+  if (/Linux/i.test(userAgent)) return "Linux";
+  return "Unknown";
+}
+
+function fileAccessAllowed(): Promise<boolean> {
+  return new Promise((resolve) => chrome.extension.isAllowedFileSchemeAccess(resolve));
 }
 
 async function activateTarget(tabId: number): Promise<void> {
@@ -314,6 +341,22 @@ async function handleRequest(message: AnchorQRequest): Promise<ApiResponse> {
         providerReady: false,
       }));
       return response(next);
+    }
+
+    case "DIAGNOSTICS_GET": {
+      const [state, fileAllowed, webAllowed] = await Promise.all([
+        getState(),
+        fileAccessAllowed(),
+        chrome.permissions.contains({ origins: ["http://*/*", "https://*/*"] }),
+      ]);
+      return response(createDiagnosticReport({
+        state,
+        extensionVersion: chrome.runtime.getManifest().version,
+        browser: browserSummary(),
+        platform: platformSummary(),
+        fileAccessAllowed: fileAllowed,
+        webAccessGranted: webAllowed,
+      }));
     }
 
     case "SETTINGS_UPDATE": {
@@ -692,7 +735,10 @@ chrome.runtime.onMessage.addListener((raw, sender, sendResponse) => {
       sender,
     )
       .then(sendResponse)
-      .catch((error) => sendResponse(errorResponse(error)));
+      .catch(async (error) => {
+        await recordDiagnosticFailure(error, `SHIELD_ACTION:${raw.action}`);
+        sendResponse(errorResponse(error));
+      });
     return true;
   }
 
@@ -703,7 +749,10 @@ chrome.runtime.onMessage.addListener((raw, sender, sendResponse) => {
   }
   void handleRequest(parsed.data)
     .then(sendResponse)
-    .catch((error) => sendResponse(errorResponse(error)));
+    .catch(async (error) => {
+      await recordDiagnosticFailure(error, parsed.data.type);
+      sendResponse(errorResponse(error));
+    });
   return true;
 });
 

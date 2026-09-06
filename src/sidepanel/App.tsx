@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { type DialogueMessage, type ProviderSummary, type Settings } from "../domain/types";
+import { type DiagnosticReport, type DialogueMessage, type ProviderSummary, type Settings } from "../domain/types";
 import { useAppState } from "../shared/use-app-state";
 import { PersonaGlyph } from "../companion/Persona";
 
@@ -18,6 +18,7 @@ function SettingsPanel({
   onSaveProvider,
   onTestProvider,
   onClearProvider,
+  onGetDiagnostics,
 }: {
   settings: Settings;
   provider: ProviderSummary;
@@ -25,6 +26,7 @@ function SettingsPanel({
   onSaveProvider: (value: { baseUrl: string; model: string; apiKey?: string; consentGranted: true }) => Promise<void>;
   onTestProvider: () => Promise<void>;
   onClearProvider: () => Promise<void>;
+  onGetDiagnostics: () => Promise<DiagnosticReport>;
 }) {
   const [intervalInput, setIntervalInput] = useState(String(settings.recheckIntervalMinutes));
   const [baseUrl, setBaseUrl] = useState(provider.baseUrl);
@@ -33,6 +35,7 @@ function SettingsPanel({
   const [consent, setConsent] = useState(provider.consentGranted);
   const [providerBusy, setProviderBusy] = useState(false);
   const [providerMessage, setProviderMessage] = useState<string>();
+  const [diagnosticMessage, setDiagnosticMessage] = useState<string>();
 
   useEffect(() => {
     setIntervalInput(String(settings.recheckIntervalMinutes));
@@ -213,6 +216,24 @@ function SettingsPanel({
         >清除凭据</button>
       </div>
       <small className="provider-note">Key 仅保存在浏览器会话中，不会写入扩展包；关闭 Edge 后需要重新填写。</small>
+      <div className="diagnostic-divider" />
+      <div className="diagnostic-row">
+        <span><strong>问题诊断</strong><small>不包含 Key、论文内容、回答或网址</small></span>
+        <button
+          type="button"
+          onClick={async () => {
+            setDiagnosticMessage(undefined);
+            try {
+              const report = await onGetDiagnostics();
+              await navigator.clipboard.writeText(JSON.stringify(report, null, 2));
+              setDiagnosticMessage("诊断信息已复制，可由你主动发送给支持人员。 ");
+            } catch {
+              setDiagnosticMessage("复制失败，请确认 Edge 允许此页面使用剪贴板。 ");
+            }
+          }}
+        >复制诊断信息</button>
+      </div>
+      {diagnosticMessage && <div className="diagnostic-message">{diagnosticMessage}</div>}
     </section>
   );
 }
@@ -389,6 +410,11 @@ export function App() {
           onSaveProvider={async (value) => { await dispatch({ type: "MODEL_CONFIG_SAVE", payload: value }); }}
           onTestProvider={async () => { await dispatch({ type: "MODEL_CONFIG_TEST" }); }}
           onClearProvider={async () => { await dispatch({ type: "MODEL_CONFIG_CLEAR" }); }}
+          onGetDiagnostics={async () => {
+            const result = await chrome.runtime.sendMessage({ type: "DIAGNOSTICS_GET" });
+            if (!result?.ok) throw new Error(result?.error || "无法生成诊断信息");
+            return result.data as DiagnosticReport;
+          }}
         />
       )}
 
