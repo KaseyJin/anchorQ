@@ -3,8 +3,9 @@
 - 发布者类型：个人开发者
 - 发布者显示名称：kasey
 - 公开支持与隐私邮箱：jinxy3799@gmail.com
-- 隐私政策静态页面：`docs/index.html`（待发布到 GitHub Pages）
-- 计划公开地址：`https://kaseyjin.github.io/anchorQ/`
+- 隐私政策静态页面：`docs/index.html`（已由 GitHub Pages 发布）
+- 公开地址：`https://kaseyjin.github.io/anchorQ/`
+- 中文商店资料：`STORE_LISTING_ZH_CN.md`
 
 ## 当前已满足
 
