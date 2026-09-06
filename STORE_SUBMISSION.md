@@ -6,6 +6,9 @@
 - 隐私政策静态页面：`docs/index.html`（已由 GitHub Pages 发布）
 - 公开地址：`https://kaseyjin.github.io/anchorQ/`
 - 中文商店资料：`STORE_LISTING_ZH_CN.md`
+- 商店 Logo：`store-assets/logo/anchorq-store-logo-300x300.png`
+- 商店截图：`store-assets/screenshots/`（3 张，均为 1280×800）
+- 小型宣传图：`store-assets/promotional/anchorq-small-promo-440x280.png`
 
 ## 当前已满足
 
@@ -18,13 +21,13 @@
 - 提供模型连接测试和一键清除凭据。
 - 未配置模型时仍可完整测试阅读器与网页守护，理解检查会明确显示不可用原因。
 - 支持结束会话时清除对话与临时许可。
+- 隐私政策已发布到无需登录即可访问的 HTTPS 页面，并包含联系邮箱与生效日期。
+- 已准备 300×300 商店 Logo、3 张真实产品截图、440×280 小型宣传图与中文商店描述。
 
 ## 提交前仍需完成
 
 - 用多种公开 PDF 验证正文提取、页码引用、容量上限与证据定位。
 - 对所有声明权限完成最小化复核，并撰写 Partner Center 权限说明。
-- 将 `PRIVACY.md` 发布到无需登录即可访问的 HTTPS 页面，补充联系邮箱与生效日期。
-- 准备 128×128 或更高的商店 Logo、至少一张真实截图、中文商店描述和认证测试步骤。
 - 完成正常、断网、错误 Key、超长 PDF、扫描版 PDF、浏览器重启和受保护页面测试。
 - 生成不含源码映射、测试文件、开发凭据或本地文件的发布 ZIP，并对 ZIP 再做一次秘密扫描。
 
