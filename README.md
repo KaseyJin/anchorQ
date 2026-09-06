@@ -5,8 +5,8 @@ AnchorQ 是一个 Microsoft Edge Manifest V3 PDF 论文伴学扩展。它在学�
 ## 环境
 
 - Node.js 24+
-- Microsoft Edge 114+
-- Windows
+- Windows 10/11
+- Microsoft Edge 桌面版 114+
 
 ## 安装依赖与构建
 
@@ -65,6 +65,7 @@ npm test
 
 ## 当前产品化限制
 
+- 1.0.0 仅正式支持 Windows 10/11 上的 Microsoft Edge 桌面版；其他桌面系统尚未完成兼容性验证。
 - 不处理浏览器快捷键。
 - 不采集普通网页内容。
 - 学习会话期间，未获许可的普通网页会被不透明防护层预先遮蔽；浏览器内部页面不在此范围内。
