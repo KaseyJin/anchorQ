@@ -479,6 +479,13 @@ export function App() {
               disabled={!state.providerReady || session.paperIndex.textPages < 1 || session.paperIndex.status === "unsupported"}
               onClick={() => void dispatch({ type: "SESSION_END_WITH_AI" })}
             >结束并检查理解 <span>→</span></button>
+            {!state.providerReady && <small className="ai-disabled-reason">尚未配置模型：阅读与网页守护可继续使用，理解检查暂不可用。</small>}
+            {state.providerReady && session.paperIndex.textPages < 1 && session.paperIndex.status !== "unsupported" && (
+              <small className="ai-disabled-reason">正在提取已读页面文字，完成后即可检查理解。</small>
+            )}
+            {session.paperIndex.status === "unsupported" && (
+              <small className="ai-disabled-reason">这份 PDF 没有文本层，首版暂不支持理解检查。</small>
+            )}
             <button className="end-link" onClick={() => void dispatch({ type: "SESSION_END_DIRECT" })}>直接结束并清除数据</button>
           </div>
         </section>
