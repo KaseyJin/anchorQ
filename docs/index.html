@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="color-scheme" content="light dark" />
+  <title>AnchorQ 隐私政策</title>
+  <style>
+    :root { font-family: system-ui, "Microsoft YaHei UI", sans-serif; color: #211e1a; background: #f4f0e8; }
+    body { margin: 0; }
+    main { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+    header { border-bottom: 1px solid #cfc7ba; padding-bottom: 24px; margin-bottom: 32px; }
+    h1 { font: 500 42px/1.1 Georgia, serif; margin: 8px 0 14px; }
+    h2 { font-size: 19px; margin-top: 32px; }
+    p, li { font-size: 15px; line-height: 1.75; }
+    .meta, footer { color: #716960; font-size: 13px; }
+    a { color: #315d9a; }
+    @media (prefers-color-scheme: dark) {
+      :root { color: #eee9e2; background: #181613; }
+      header { border-color: #4a443d; }
+      .meta, footer { color: #aaa198; }
+      a { color: #8eb8ed; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="meta">AnchorQ · PDF 论文伴学</div>
+    <h1>隐私政策</h1>
+    <div class="meta">发布者：kasey · 生效日期：2026 年 9 月 6 日</div>
+  </header>
+
+  <p>AnchorQ 是用于 PDF 阅读期间注意力管理与理解检验的 Microsoft Edge 扩展。本政策说明扩展处理哪些数据、为什么处理，以及用户可以如何控制这些数据。</p>
+
+  <h2>AnchorQ 处理的数据</h2>
+  <ul>
+    <li>当前学习会话所选 PDF 的地址、标题、页码和本地提取的文本层；</li>
+    <li>用户实际阅读过的页码，以及为理解问答选取的少量论文片段；</li>
+    <li>用户输入的学习目标、回答和后续问题；</li>
+    <li>学习会话中目标标签页的 URL、标题和主机名，用于显示访问确认层。</li>
+  </ul>
+
+  <h2>AnchorQ 不处理的数据</h2>
+  <p>AnchorQ 不读取普通网页正文、聊天内容、视频内容、密码、表单、摄像头、麦克风、剪贴板或 Edge 之外的应用活动。</p>
+
+  <h2>用户选择的模型服务</h2>
+  <p>AnchorQ 不内置公共模型账户。用户需要自行填写 OpenAI 兼容的 HTTPS 接口地址、模型名称和 API Key，并明确同意发送数据后，模型功能才会启用。</p>
+  <p>为完成出题和反馈，AnchorQ 会将学习目标、问答内容及必要的已读论文片段直接发送给用户选择的模型服务。AnchorQ 当前不部署中转服务器，也不控制第三方模型提供商。用户应自行查看相应提供商的隐私政策、数据保留规则和费用标准。</p>
+
+  <h2>存储、保留和删除</h2>
+  <ul>
+    <li>角色、确认模式、模型接口地址和模型名称保存在浏览器本地存储中；</li>
+    <li>API Key 仅保存在浏览器会话存储中，不向网页内容脚本开放，关闭 Edge 后清除；</li>
+    <li>论文索引、活动许可和问答仅保留在当前浏览器会话中；</li>
+    <li>用户可以随时在设置中清除模型凭据，或结束学习会话以删除当次索引和对话。</li>
+  </ul>
+
+  <h2>浏览器权限</h2>
+  <ul>
+    <li><strong>storage</strong>：保存设置和当前学习会话；</li>
+    <li><strong>tabs</strong>：识别当前 PDF、返回核心材料并判断标签页切换；</li>
+    <li><strong>scripting 与按需网站访问</strong>：仅在用户授权并开始学习会话后安装访问确认层，会话结束后停止动态注册；</li>
+    <li><strong>sidePanel</strong>：显示会话控制和伴学问答。</li>
+  </ul>
+
+  <h2>联系方式</h2>
+  <p>有关隐私、数据删除或产品支持的问题，请联系 <a href="mailto:jinxy3799@gmail.com">jinxy3799@gmail.com</a>。</p>
+
+  <footer>如果 AnchorQ 的功能或数据处理方式发生变化，本页面会同步更新。</footer>
+</main>
+</body>
+</html>

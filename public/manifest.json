@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "AnchorQ - PDF 论文伴学",
+  "version": "0.2.0",
+  "description": "在 PDF 阅读期间管理注意力，并通过用户自选的大模型检验理解。",
+  "icons": {
+    "128": "icons/anchorq.png"
+  },
+  "minimum_edge_version": "114",
+  "permissions": ["storage", "tabs", "sidePanel", "scripting"],
+  "host_permissions": ["file:///*"],
+  "optional_host_permissions": ["http://*/*", "https://*/*"],
+  "background": {
+    "service_worker": "assets/background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "打开 AnchorQ",
+    "default_icon": "icons/anchorq.png"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/index.html"
+  }
+}

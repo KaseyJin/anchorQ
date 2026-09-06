@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.env.local
+.env.*.local
+coverage/
+tmp/
+*.log
+*.tsbuildinfo
+scripts/visual-smoke.mjs
+scripts/live-agent-smoke.mjs
