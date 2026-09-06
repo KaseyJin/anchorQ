@@ -43,7 +43,7 @@ describe("脱敏诊断", () => {
 
     const report = createDiagnosticReport({
       state,
-      extensionVersion: "0.2.0",
+      extensionVersion: "1.0.0",
       browser: "Microsoft Edge 140",
       platform: "Windows",
       fileAccessAllowed: true,

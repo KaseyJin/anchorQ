@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AnchorQ",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "在 PDF 阅读时减少分心，并用自己的大模型检验理解。",
   "icons": {
     "128": "icons/anchorq.png"
